@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Keep your recurring subscriptions organized.">
+  <title>Subscription Tracker</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="st-body">
+  <header class="st-header">
+    <div class="st-container st-header-inner">
+      <div>
+        <p class="st-eyebrow">PERSONAL FINANCE</p>
+        <h1 class="st-title">Subscription tracker</h1>
+        <p class="st-muted">Stay ahead of every renewal in one simple view.</p>
+      </div>
+      <div class="st-header-mark" aria-hidden="true">ST</div>
+    </div>
+  </header>
+
+  <main class="st-container st-stack">
+    <section class="st-card st-form-card" aria-labelledby="form-heading">
+      <div class="st-section-heading">
+        <div>
+          <p class="st-kicker">GET STARTED</p>
+          <h2 class="st-card-title" id="form-heading">Add a subscription</h2>
+        </div>
+        <span class="st-step">01</span>
+      </div>
+      <form id="subscription-form" class="st-form" novalidate>
+        <div class="st-field">
+          <label class="st-label" for="service">Service <span aria-hidden="true">*</span></label>
+          <input class="st-input" type="text" id="service" name="service" placeholder="e.g. Netflix" autocomplete="off" required>
+          <span class="st-error" data-error-for="service"></span>
+        </div>
+        <div class="st-field">
+          <label class="st-label" for="provider">Provider <span aria-hidden="true">*</span></label>
+          <input class="st-input" type="text" id="provider" name="provider" placeholder="e.g. Netflix Inc." autocomplete="organization" required>
+          <span class="st-error" data-error-for="provider"></span>
+        </div>
+        <div class="st-field">
+          <label class="st-label" for="subscriber">Subscriber <span aria-hidden="true">*</span></label>
+          <input class="st-input" type="text" id="subscriber" name="subscriber" placeholder="e.g. Alex Morgan" autocomplete="name" required>
+          <span class="st-error" data-error-for="subscriber"></span>
+        </div>
+        <div class="st-field">
+          <label class="st-label" for="renewal">Renewal date <span aria-hidden="true">*</span></label>
+          <input class="st-input" type="date" id="renewal" name="renewal" required>
+          <span class="st-error" data-error-for="renewal"></span>
+        </div>
+        <div class="st-field">
+          <label class="st-label" for="category">Category <span aria-hidden="true">*</span></label>
+          <select class="st-input" id="category" name="category" required>
+            <option value="">Choose a category</option>
+            <option>Streaming</option>
+            <option>Music</option>
+            <option>Software</option>
+            <option>Cloud storage</option>
+            <option>News</option>
+            <option>Gaming</option>
+            <option>Other</option>
+          </select>
+          <span class="st-error" data-error-for="category"></span>
+        </div>
+        <div class="st-field st-field-action">
+          <button class="st-btn st-btn-primary" type="submit">
+            <span aria-hidden="true">+</span> Add subscription
+          </button>
+        </div>
+      </form>
+      <p class="st-form-note"><span aria-hidden="true">*</span> All fields are required.</p>
+    </section>
+
+    <section class="st-card" aria-labelledby="summary-heading">
+      <div class="st-section-heading">
+        <div>
+          <p class="st-kicker">AT A GLANCE</p>
+          <h2 class="st-card-title" id="summary-heading">Your summary</h2>
+        </div>
+      </div>
+      <div class="st-stats">
+        <div class="st-stat">
+          <span class="st-stat-icon" aria-hidden="true">◎</span>
+          <span class="st-stat-value" id="total-count">0</span>
+          <span class="st-stat-label">Total subscriptions</span>
+        </div>
+        <div class="st-stat st-stat-danger">
+          <span class="st-stat-icon" aria-hidden="true">!</span>
+          <span class="st-stat-value" id="expired-count">0</span>
+          <span class="st-stat-label">Expired subscriptions</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="st-card st-list-card" aria-labelledby="table-heading">
+      <div class="st-section-heading">
+        <div>
+          <p class="st-kicker">SUBSCRIPTION LIST</p>
+          <h2 class="st-card-title" id="table-heading">All subscriptions</h2>
+        </div>
+        <span class="st-count-label" id="list-count">0 items</span>
+      </div>
+      <div class="st-table-wrap">
+        <table class="st-table">
+          <caption class="st-visually-hidden">Saved subscriptions and their renewal status</caption>
+          <thead>
+            <tr>
+              <th scope="col">Service</th>
+              <th scope="col">Provider</th>
+              <th scope="col">Subscriber</th>
+              <th scope="col">Renewal date</th>
+              <th scope="col">Category</th>
+              <th scope="col">Status</th>
+              <th scope="col"><span class="st-visually-hidden">Action</span></th>
+            </tr>
+          </thead>
+          <tbody id="subscription-rows"></tbody>
+        </table>
+      </div>
+      <div class="st-empty" id="empty-message">
+        <span class="st-empty-icon" aria-hidden="true">✦</span>
+        <strong>No subscriptions yet</strong>
+        <span>Add your first subscription above to start tracking renewals.</span>
+      </div>
+      <p class="st-live-message" id="live-message" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer class="st-footer">
+    <div class="st-container st-footer-inner">
+      <span>Subscription Tracker</span>
+      <span class="st-muted">Saved locally in your browser</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
